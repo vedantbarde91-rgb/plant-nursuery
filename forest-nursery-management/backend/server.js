@@ -11,15 +11,19 @@ connectDB();
 
 const app = express();
 
-// ✅ CORS Configuration (IMPORTANT)
-app.use(cors({
+// ✅ FINAL CORS CONFIG (IMPORTANT)
+const corsOptions = {
   origin: [
     "http://localhost:3001",
     "https://plantnurserys.netlify.app"
   ],
-  methods: ["GET", "POST", "PUT", "DELETE"],
+  methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
+  allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
-}));
+};
+
+app.use(cors(corsOptions));
+app.options('*', cors(corsOptions)); // ✅ handle preflight
 
 // Middleware
 app.use(express.json());
@@ -35,12 +39,12 @@ app.use('/api/messages', require('./routes/messageRoutes'));
 app.use('/api/attendance', require('./routes/attendanceRoutes'));
 app.use('/api/reports', require('./routes/reportRoutes'));
 
-// ✅ Health check route
+// ✅ Health check
 app.get('/', (req, res) => {
   res.json({ message: '🌿 Forest Nursery Management System API is running' });
 });
 
-// ✅ Start server
+// Start server
 const PORT = process.env.PORT || 5000;
 app.listen(PORT, () => {
   console.log(`🚀 Server running on port ${PORT}`);
