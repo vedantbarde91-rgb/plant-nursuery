@@ -1,8 +1,10 @@
 import axios from 'axios';
 
-const API = axios.create({ 
-  baseURL: process.env.REACT_APP_API_URL || 'https://your-backend-url.onrender.com/api'
-});
+const baseURL = process.env.REACT_APP_API_URL || (process.env.NODE_ENV === 'development'
+  ? 'http://localhost:5000/api'
+  : 'https://your-backend-url.onrender.com/api');
+
+const API = axios.create({ baseURL });
 
 // Attach token to every request
 API.interceptors.request.use((config) => {
