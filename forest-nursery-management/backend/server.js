@@ -13,10 +13,10 @@ const app = express();
 
 // ✅ FINAL CORS CONFIG (IMPORTANT)
 const corsOptions = {
-  origin: [
-    "http://localhost:3001",
-    "https://plantnurserys.netlify.app"
-  ],
+ origin: [
+  "http://localhost:3001",
+  "https://nurserywrsc.netlify.app"
+],
   methods: ["GET", "POST", "PUT", "DELETE", "OPTIONS"],
   allowedHeaders: ["Content-Type", "Authorization"],
   credentials: true
